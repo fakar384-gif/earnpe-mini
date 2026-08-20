@@ -62,8 +62,34 @@ document.getElementById("claim-btn").addEventListener("click", async () => {
             points: newPoints
         });
         
-        // ব্যালান্স আপডেট করে ইউজারকে মেসেজ দেখানো
+        // Claim বাটনে ক্লিক করলে পয়েন্ট যোগ করা এবং অ্যাড দেখানো
+document.getElementById("claim-btn").addEventListener("click", async () => {
+    
+    // ১. আগে ফায়ারবেসে পয়েন্ট যোগ হবে
+    try {
+        const docSnap = await getDoc(userRef);
+        let currentPoints = 0;
+        
+        if (docSnap.exists()) {
+            currentPoints = docSnap.data().points;
+        }
+        
+        let newPoints = currentPoints + 10;
+        
+        // ফায়ারবেস ডেটাবেসে আপডেট
+        await setDoc(userRef, {
+            name: userName,
+            points: newPoints
+        }, { merge: true });
+        
+        // স্ক্রিনে নতুন ব্যালান্স দেখানো
         document.getElementById("balance").innerText = newPoints;
-        tg.showAlert(`অভিনন্দন! আপনি পয়েন্ট পেয়েছেন। নতুন ব্যালান্স: ${newPoints} Points`);
+        
+    } catch (error) {
+        console.log("Firebase error:", error);
     }
-});
+
+    // ২. পয়েন্ট যোগ করার সাথে সাথেই অ্যাড ওপেন হবে
+    window.open("https://omg10.com/4/11586990", "_blank");
+})
+  ;
