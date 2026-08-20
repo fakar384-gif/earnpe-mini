@@ -89,7 +89,7 @@ document.getElementById("claim-btn").addEventListener("click", async () => {
         console.log("Firebase error:", error);
     }
 
-    // ২. পয়েন্ট যোগ করার সাথে সাথেই অ্যাড ওপেন হবে
-    window.open("https://omg10.com/4/11586990", "_blank");
+    tg.openLink("https://omg10.com/4/11586990");
+  
 })
   ;
